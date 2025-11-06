@@ -149,6 +149,7 @@ int main(void)
 //  MX_ADC1_Init();
 //  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
+  printf("ok");
   TIM1_Init();
   ADC1_DMA1CH1_init();
   //ADC o/p is uint16, change it into uint32
@@ -690,7 +691,8 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 //	  printf("%d ",sample_buffer[i]);
 //  }
 //  printf("\n");
-	osSemaphoreRelease(Sem1Handle);
+
+	if (hadc->Instance == ADC1) osSemaphoreRelease(Sem1Handle);
 }
 
 void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc)
@@ -701,7 +703,8 @@ void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc)
 //	  printf("%d ",sample_buffer[i]);
 //  }
 //  printf("\n");
-	osSemaphoreRelease(Sem2Handle);
+
+	if (hadc->Instance == ADC1) osSemaphoreRelease(Sem2Handle);
 }
 void DMA1_Channel1_IRQHandler(void)
 {
@@ -1045,6 +1048,7 @@ static void MX_GPIO_Init(void)
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN 5 */
+	printf("ok");
   /* Infinite loop */
   for(;;)
   {
